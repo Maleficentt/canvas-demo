@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas Demo</title>
+  <style>
+    canvas {
+      cursor: pointer;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="300"></canvas>
+  <div>
+    <button onclick="save()">保存图片</button>
+    <button onclick="clearCanvas()">清空画布</button>
+  </div>
+  <div id="img-container"></div>
+
+  <script>
+    // 这个方法用来储存每个圆圈对象
+    // function Circle(x, y, radius, color) {
+    //   this.x = x;
+    //   this.y = y;
+    //   this.radius = radius;
+    //   this.color = color;
+    //   this.isSelected = false;
+    // }
+
+    // // 保存画布上所有的圆圈
+    // var circles = [];
+
+    // var canvas;
+    // var context;
+
+    // window.onload = function () {
+    //   canvas = document.getElementById("canvas");
+    //   context = canvas.getContext("2d");
+
+    //   canvas.onmousedown = canvasClick;
+    //   canvas.onmouseup = stopDragging;
+    //   canvas.onmouseout = stopDragging;
+    //   canvas.onmousemove = dragCircle;
+    // };
+
+    // function addRandomCircle() {
+    //   // 为圆圈计算一个随机大小和位置
+    //   var radius = randomFromTo(10, 60);
+    //   var x = randomFromTo(0, canvas.width);
+    //   var y = randomFromTo(0, canvas.height);
+
+    //   // 为圆圈计算一个随机颜色
+    //   var colors = ["green", "blue", "red", "yellow", "magenta", "orange", "brown", "purple", "pink"];
+    //   var color = colors[randomFromTo(0, 8)];
+
+    //   // 创建一个新圆圈
+    //   var circle = new Circle(x, y, radius, color);
+
+    //   // 把它保存在数组中
+    //   circles.push(circle);
+
+    //   // 重新绘制画布
+    //   drawCircles();
+    // }
+
+    // function clearCanvas() {
+    //   // 去除所有圆圈
+    //   circles = [];
+
+    //   // 重新绘制画布.
+    //   drawCircles();
+    // }
+
+    // function drawCircles() {
+    //   // 清除画布，准备绘制
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
+
+    //   // 遍历所有圆圈
+    //   for (var i = 0; i < circles.length; i++) {
+    //     var circle = circles[i];
+
+    //     // 绘制圆圈
+    //     context.globalAlpha = 0.55;
+    //     context.beginPath();
+    //     context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+    //     context.fillStyle = circle.color;
+    //     context.strokeStyle = "black";
+
+    //     if (circle.isSelected) {
+    //       context.lineWidth = 5;
+    //     } else {
+    //       context.lineWidth = 1;
+    //     }
+    //     context.fill();
+    //     context.stroke();
+    //   }
+    // }
+
+    // var previousSelectedCircle;
+
+    // function canvasClick(e) {
+    //   // 取得画布上被单击的点
+    //   var clickX = e.pageX - canvas.offsetLeft;
+    //   var clickY = e.pageY - canvas.offsetTop;
+
+    //   // 查找被单击的圆圈
+    //   for (var i = circles.length - 1; i >= 0; i--) {
+    //     var circle = circles[i];
+    //     //使用勾股定理计算这个点与圆心之间的距离
+    //     var distanceFromCenter = Math.sqrt(Math.pow(circle.x - clickX, 2) +
+    //       Math.pow(circle.y - clickY, 2))
+    //     // 判断这个点是否在圆圈中
+    //     if (distanceFromCenter <= circle.radius) {
+    //       // 清除之前选择的圆圈
+    //       if (previousSelectedCircle != null) previousSelectedCircle.isSelected = false;
+    //       previousSelectedCircle = circle;
+
+    //       //选择新圆圈
+    //       circle.isSelected = true;
+
+    //       // 使圆圈允许拖拽
+    //       isDragging = true;
+
+    //       //更新显示
+    //       drawCircles();
+
+    //       //停止搜索
+    //       return;
+    //     }
+    //   }
+    // }
+
+    // //在某个范围内生成随机数
+    // function randomFromTo(from, to) {
+    //   return Math.floor(Math.random() * (to - from + 1) + from);
+    // }
+
+    // var isDragging = false;
+
+    // function stopDragging() {
+    //   isDragging = false;
+    // }
+
+    // function dragCircle(e) {
+    //   // 判断圆圈是否开始拖拽
+    //   if (isDragging == true) {
+    //     // 判断拖拽对象是否存在
+    //     if (previousSelectedCircle != null) {
+    //       // 取得鼠标位置
+    //       var x = e.pageX - canvas.offsetLeft;
+    //       var y = e.pageY - canvas.offsetTop;
+
+    //       // 将圆圈移动到鼠标位置
+    //       previousSelectedCircle.x = x;
+    //       previousSelectedCircle.y = y;
+
+    //       // 更新画布
+    //       drawCircles();
+    //     }
+    //   }
+    // }
+  </script>
+
+  <script src="./index.js"></script>
+  
+</body>
+
+</html>
