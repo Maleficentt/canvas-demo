@@ -9,6 +9,9 @@ function Rect(startX, startY, endX, endY, color) {
 
 let rectList = []
 
+let undoArray = []
+let redoArray = []
+
 let canvas
 let context
 
@@ -62,6 +65,11 @@ function mouseDown(e) {
     currentRect = rectList[rectIndex]
     isDragging = true
     currentRect.isSelected = true
+    undoArray.pop()
+    const tempRectList = rectList.slice()
+    const tempCurrentRect = Object.assign({}, currentRect)
+    tempRectList.splice(rectIndex, 1, tempCurrentRect)
+    undoArray.push(tempRectList)
   } else {
     isDrawing = true
   }
@@ -72,7 +80,7 @@ function mouseMove(e) {
   endX = e.offsetX
   endY = e.offsetY
   if (isDrawing) {
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    // context.clearRect(0, 0, canvas.width, canvas.height)
     drawRects()
     context.globalAlpha = 0.3
     context.beginPath()
@@ -112,7 +120,7 @@ function mouseMove(e) {
       currentRect.startY += h
       currentRect.endY += h
     }
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    // context.clearRect(0, 0, canvas.width, canvas.height)
     drawRects()
   }
 }
@@ -121,16 +129,19 @@ function mouseUp(e) {
   if (isDrawing) {
     rectList.unshift(new Rect(startX, startY, endX, endY, color))
     isDrawing = false
+    undoArray.push(rectList.slice())
   }
   if (isDragging) {
     rectList.forEach(item => {
       item.isSelected = false
     })
     isDragging = false
+    undoArray.push(rectList.slice())
   }
 }
 
 function drawRects() {
+  clearCanvas()
   for (let i = 0; i < rectList.length; i++) {
     let rect = rectList[i]
     context.globalAlpha = 0.3
@@ -156,9 +167,16 @@ function randomFromTo(from, to) {
 
 function clearCanvas() {
   // 去除所有圆圈
-  rectList = []
+  // rectList = []
 
   context.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+function clearAll () {
+  rectList = []
+  clearCanvas()
+  undoArray = []
+  redoArray = []
 }
 
 function save () {
@@ -167,4 +185,30 @@ function save () {
   chileNode.src = data
   document.getElementById('img-container').appendChild(chileNode)
   clearCanvas()
+}
+
+function undo () {
+  // context.clearRect(0, 0, canvas.width, canvas.height)
+  if (undoArray.length > 0) {
+    redoArray.push(undoArray.pop())
+    rectList = undoArray[undoArray.length - 1].slice()
+  } else {
+    rectList = []
+  }
+  console.log('撤销')
+  console.log('undoArray', undoArray)
+  console.log('redoArray', redoArray)
+  drawRects()
+}
+
+function redo () {
+  // context.clearRect(0, 0, canvas.width, canvas.height)
+  if (redoArray.length > 0) {
+    rectList = redoArray[redoArray.length - 1].slice()
+    undoArray.push(redoArray.pop())
+  }
+  console.log('前进')
+  console.log('undoArray', undoArray)
+  console.log('redoArray', redoArray)
+  drawRects()
 }
