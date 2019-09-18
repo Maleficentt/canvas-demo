@@ -125,14 +125,13 @@ function mouseMove(e) {
 function mouseUp(e) {
   if (isDrawing) {
     rectList.unshift(new Rect(startX, startY, endX, endY, color))
-    undoArray.push(rectList.slice())
   }
   if (isDragging) {
     rectList.forEach(item => {
       item.isSelected = false
     })
-    undoArray.push(rectList.slice())
   }
+  undoArray.push(rectList.slice())
   isDrawing = false
   isDragging = false
 }
@@ -183,7 +182,6 @@ function save () {
   document.getElementById('img-container').appendChild(chileNode)
   clearCanvas()
 }
-
 function undo () {
   // context.clearRect(0, 0, canvas.width, canvas.height)
   if (undoArray.length > 0) {
