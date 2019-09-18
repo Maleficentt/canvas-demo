@@ -132,6 +132,7 @@ function mouseUp(e) {
     })
   }
   undoArray.push(rectList.slice())
+  redoArray = []
   isDrawing = false
   isDragging = false
 }
