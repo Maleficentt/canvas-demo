@@ -184,8 +184,8 @@ function save () {
 }
 function undo () {
   // context.clearRect(0, 0, canvas.width, canvas.height)
+  redoArray.push(undoArray.pop())
   if (undoArray.length > 0) {
-    redoArray.push(undoArray.pop())
     rectList = undoArray[undoArray.length - 1].slice()
   } else {
     rectList = []
