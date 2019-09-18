@@ -181,7 +181,7 @@ function save () {
   const chileNode =document.createElement('img')
   chileNode.src = data
   document.getElementById('img-container').appendChild(chileNode)
-  clearCanvas()
+  clearAll()
 }
 function undo () {
   // context.clearRect(0, 0, canvas.width, canvas.height)
