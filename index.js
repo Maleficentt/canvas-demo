@@ -41,8 +41,6 @@ const colors = ['green', 'blue', 'red', 'yellow', 'magenta', 'orange', 'brown', 
 let color
 
 function mouseDown(e) {
-  isDrawing = false
-  isDragging = false
   startX = e.offsetX
   startY = e.offsetY
   rectIndex = rectList.findIndex(item => {
@@ -60,7 +58,6 @@ function mouseDown(e) {
       }
     }
   })
-  console.log(rectIndex)
   if (rectIndex !== -1) {
     currentRect = rectList[rectIndex]
     isDragging = true
@@ -128,16 +125,16 @@ function mouseMove(e) {
 function mouseUp(e) {
   if (isDrawing) {
     rectList.unshift(new Rect(startX, startY, endX, endY, color))
-    isDrawing = false
     undoArray.push(rectList.slice())
   }
   if (isDragging) {
     rectList.forEach(item => {
       item.isSelected = false
     })
-    isDragging = false
     undoArray.push(rectList.slice())
   }
+  isDrawing = false
+  isDragging = false
 }
 
 function drawRects() {
@@ -180,7 +177,7 @@ function clearAll () {
 }
 
 function save () {
-  const data = canvas.toDataURL( 'image/png', 1 )
+  const data = canvas.toDataURL('image/png', 1)
   const chileNode =document.createElement('img')
   chileNode.src = data
   document.getElementById('img-container').appendChild(chileNode)
