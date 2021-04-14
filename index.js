@@ -52,9 +52,9 @@ function mouseDown(e) {
       }
     } else {
       if (item.startY < item.endY) {
-        return startX > item.endY && startX < item.startY && startY > item.startY && startY < item.endY
+        return startX > item.endX && startX < item.startX && startY > item.startY && startY < item.endY
       } else {
-        return startX > item.startX && startX < item.endX && startY > item.endY && startY < item.startY
+        return startX > item.endX && startX < item.startX && startY > item.endY && startY < item.startY
       }
     }
   })
